@@ -1,20 +1,12 @@
-use rusb::{Context, UsbContext};
+use std::{thread, time::Duration};
+
+mod devices;
 
 fn main() {
-    let context = Context::new().unwrap();
+    let mut devices = devices::Devices::new();
 
-    let devices = context.devices().unwrap();
-    println!("Found {} devices", devices.len());
-
-    for device in devices.iter() {
-        let desc = device.device_descriptor().unwrap();
-
-        println!(
-            "Bus {:03} Device {:03} ID {:04x}:{:04x}",
-            device.bus_number(),
-            device.address(),
-            desc.vendor_id(),
-            desc.product_id()
-        );
+    loop {
+        devices.check_devices();
+        thread::sleep(Duration::from_millis(500));
     }
 }
