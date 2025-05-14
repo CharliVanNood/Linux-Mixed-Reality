@@ -1,11 +1,9 @@
 use rusb::{Context, UsbContext};
-use std::collections::{HashMap, HashSet};
-
-use crate::devices;
+use std::collections::HashSet;
 
 pub struct Devices {
     devices: HashSet<(u8, u8, u16, u16)>,
-    selected_devices: Vec<((u8, u8, u16, u16), Vec<u32>)>
+    selected_devices: Vec<((u8, u8, u16, u16), Vec<u64>)>
 }
 impl Devices {
     pub fn new() -> Self {
