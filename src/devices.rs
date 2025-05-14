@@ -13,7 +13,7 @@ impl Devices {
         let context = Context::new().unwrap();
 
         let devices = context.devices().unwrap();
-        println!("Found {} devices", devices.len());
+        let mut devices_len = 0;
 
         for device in devices.iter() {
             let desc = device.device_descriptor().unwrap();
@@ -28,7 +28,13 @@ impl Devices {
                     desc.vendor_id(),
                     desc.product_id()
                 );
+
+                devices_len += 1;
             }
+        }
+
+        if devices_len > 0 {
+            println!("Found {} devices", devices.len());
         }
     }
 }
