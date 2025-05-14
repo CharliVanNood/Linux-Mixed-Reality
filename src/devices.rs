@@ -13,28 +13,25 @@ impl Devices {
         let context = Context::new().unwrap();
 
         let devices = context.devices().unwrap();
-        let mut devices_len = 0;
 
+        print!("\n\n\n\n\n\n\n\n");
         for device in devices.iter() {
             let desc = device.device_descriptor().unwrap();
 
             if !self.devices.contains(&(device.bus_number(), device.address(), desc.vendor_id(), desc.product_id())) {
                 self.devices.insert((device.bus_number(), device.address(), desc.vendor_id(), desc.product_id()));
-
-                println!(
-                    "Bus {:03} Device {:03} ID {:04x}:{:04x}",
-                    device.bus_number(),
-                    device.address(),
-                    desc.vendor_id(),
-                    desc.product_id()
-                );
-
-                devices_len += 1;
             }
+
+            println!(
+                "Bus {:03} Device {:03} ID {:04x}:{:04x} Raw: {:?}",
+                device.bus_number(),
+                device.address(),
+                desc.vendor_id(),
+                desc.product_id(),
+                device.as_raw()
+            );
         }
 
-        if devices_len > 0 {
-            println!("Found {} devices", devices.len());
-        }
+        println!("-------------------- {} Devices -------------------", devices.len());
     }
 }
