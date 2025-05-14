@@ -7,7 +7,7 @@ fn main() {
 
     let mut check_index = 0;
     loop {
-        if check_index % 500 == 0 { devices.check_devices(); }
+        if check_index % 100 == 0 { devices.check_devices(); }
         devices.check_usb();
 
         check_index += 1;
